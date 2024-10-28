@@ -1,0 +1,894 @@
+setwd("C:/Users/HP/Documents")
+getwd()
+install.packages("readxl")
+library(tidyverse)
+library(readxl)
+library(tidyr)
+library(broom)
+cher<-read_excel("C:/Users/HP/Documents/Essaiclinique.xlsx")
+head(cher)
+str(cher)
+summary(cher)
+table(cher$Age3)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(178) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(35) / sum(213) * 100
+print(pourcentages_cumules)
+pie(table(cher$Age3))
+barplot(table(cher$Age3))
+hist(table(cher$Age3))
+table(cher$Iamafraidofparticipatinginaclinicaltrial)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(99) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(114) / sum(213) * 100
+print(pourcentages_cumules)
+barplot(table(cher$Iamafraidofparticipatinginaclinicaltrial))
+hist(table(cher$Iamafraidofparticipatinginaclinicaltrial))
+pie(table(cher$Iamafraidofparticipatinginaclinicaltrial))
+table(cher$Q2.Ethnicity)
+barplot(table(cher$Q2.Ethnicity))
+pie(table(cher$Q2.Ethnicity))
+tableau_contingence <- table(cher$Age3, cher$Q2.Ethnicity)
+tableau_contingence
+tableau_contingencee <- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q2.Ethnicity)
+tableau_contingencee
+test_result <- chisq.test(tableau_contingencee)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(20) / sum(37) * 100
+print(pourcentages_cumules)
+tableau_contingence <- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Age3)
+tableau_contingence
+pourcentages_cumules <- cumsum(89) / sum(178) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(25) / sum(35) * 100
+print(pourcentages_cumules)
+test_result <- chisq.test(tableau_contingence)
+test_result
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q36.assignedgenderatbirth")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+table("Q36.assignedgenderatbirth")
+table(cher$"Firstgeneration")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Firstgeneration")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+table(cher$"Q4.Highestlevelofeducation")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Q4.Highestlevelofeducation")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+table(cher$"Q6.Doyouhavestrongsupportfromyoufamilyandorfriends")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Q6.Doyouhavestrongsupportfromyoufamilyandorfriends")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+table(cher$"Q7.Doyouattendayearlyfemalehealthappointment")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Q7.Doyouattendayearlyfemalehealthappointment")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+table(cher$"Q37.Doyouhavehealthinsurance")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Q37.Doyouhavehealthinsurance")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+library(ggplot2)
+install.packages("readr")
+library(readr)
+install.packages("dplyr")
+library(dplyr)
+install.packages("tidyr")
+library(tidyr)
+install.packages("caret")
+library(caret)
+install.packages("tidyverse")
+library(tidyverse)
+is.na(cher)
+sum(is.na(cher))
+colMeans(is.na(cher))
+# Compter les valeurs manquantes pour chaque variable
+valeurs_manquantes <- sapply(cher, function(x) sum(is.na(x)))
+print(valeurs_manquantes) 
+# Vérifier la structure des données
+str(cher)
+
+library(readxl)
+library(broom)
+library(readr)
+cher<-read_excel("C:/Users/HP/Documents/Essaiclinique.xlsx")
+cher
+cher$Iamafraidofparticipatinginaclinicaltrial <- as.factor(cher$Iamafraidofparticipatinginaclinicaltrial)
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Firstgeneration, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Age3, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q36.assignedgenderatbirth, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q4.Highestlevelofeducation, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q6.Doyouhavestrongsupportfromyoufamilyandorfriends, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q7.0.Doyouattendayearlyfemalehealthappointment, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+# Ajuster le modèle de régression logistique
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q37.Doyouhavehealthinsurance, data = cher, family = binomial)
+
+# Résumé du modèle
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+# Régression logistique multivariée
+multivariate_model <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Age3 + Firstgeneration + Q4.Highestlevelofeducation + Q6.Doyouhavestrongsupportfromyoufamilyandorfriends + Q7.0.Doyouattendayearlyfemalehealthappointment + Q37.Doyouhavehealthinsurance, data = cher, family = binomial)
+summary(multivariate_model)
+                 
+  
+
+# Calculer les odds ratios et les intervalles de confiance
+odds_ratios <- exp(coef(multivariate_model))  # Exponentiate les coefficients
+confint_model <- exp(confint(multivariate_model))  # Exponentiate l'intervalle de confiance
+
+# Créer un tableau des résultats
+results <- data.frame(
+  Variable = names(odds_ratios),
+  Odds_Ratio = odds_ratios,
+  CI_Lower = confint_model[,1],
+  CI_Upper = confint_model[,2]
+)
+
+# Afficher les résultats
+print(results)
+
+table(cher$"Q8.0.Haveyouoranyoneyouknowbeendiagnosedwithcervicalcancerorcervicaldysplasia")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q8.0.Haveyouoranyoneyouknowbeendiagnosedwithcervicalcancerorcervicaldysplasia")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(170) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(43) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(93) / sum(170) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(77) / sum(170) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(21) / sum(43) * 100
+print(pourcentages_cumules)
+
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q8.0.Haveyouoranyoneyouknowbeendiagnosedwithcervicalcancerorcervicaldysplasia, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$"Q9.Bloodrelativeswithovarianbreastpancreasskinorcolonrectalcancer")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial", cher$"Q9.Bloodrelativeswithovarianbreastpancreasskinorcolonrectalcancer")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(150) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(63) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(84) / sum(150) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(30) / sum(63) * 100
+print(pourcentages_cumules)
+
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q9.Bloodrelativeswithovarianbreastpancreasskinorcolonrectalcancer, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$"Q10.0.Havingafamilymemberwithcancersuggestsageneticriskforcancersinthefamily")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q10.0.Havingafamilymemberwithcancersuggestsageneticriskforcancersinthefamily")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(42) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(171) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(26) / sum(42) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(88) / sum(171) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q10.0.Havingafamilymemberwithcancersuggestsageneticriskforcancersinthefamily, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer")
+# Fonction pour calculer la mode
+get_mode <- function(v) {
+  uniq_v <- unique(v)
+  uniq_v[which.max(tabulate(match(v, uniq_v)))]
+}
+mode_value <- get_mode(cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer")
+
+# Imputation des valeurs manquantes par la mode
+cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer"[is.na(cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer")] <- mode_value
+# Affichage du nouveau data frame
+print(cher)
+
+table(cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer")
+tableau_contingence <-table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(152) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(31) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(6) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(24) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(83) / sum(152) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(20) / sum(31) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(2) / sum(6) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(9) / sum(24) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$"Q12.1.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinvagina")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q12.1.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinvagina")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(72) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(141) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(44) / sum(72) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(70) / sum(141) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q12.1.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinvagina, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$"Q12.2.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinmouth")
+tableau_contingence <- table(cher$"Iamafraidofparticipatinginaclinicaltrial",cher$"Q12.2.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinmouth")
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(3) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(210) / sum(213) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(2) / sum(3) * 100
+print(pourcentages_cumules)
+# Calculer le pourcentage cumulatif
+pourcentages_cumules <- cumsum(112) / sum(210) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q12.2.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinmouth, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+multivariate_model <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q8.0.Haveyouoranyoneyouknowbeendiagnosedwithcervicalcancerorcervicaldysplasia + Q9.Bloodrelativeswithovarianbreastpancreasskinorcolonrectalcancer + Q10.0.Havingafamilymemberwithcancersuggestsageneticriskforcancersinthefamily + Q11.Haveyouevergottenagenetictesttocheckyourriskforcancer + Q12.1.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinvagina + Q12.2.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinmouth, data = cher, family = binomial)
+summary(multivariate_model)
+
+# Calculer les odds ratios et les intervalles de confiance
+odds_ratios <- exp(coef(multivariate_model))  # Exponentiate les coefficients
+confint_model <- exp(confint(multivariate_model))  # Exponentiate l'intervalle de confiance
+
+# Créer un tableau des résultats
+results <- data.frame(
+  Variable = names(odds_ratios),
+  Odds_Ratio = odds_ratios,
+  CI_Lower = confint_model[,1],
+  CI_Upper = confint_model[,2]
+)
+
+# Afficher les résultats
+print(results)
+
+table(cher$trial)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$trial)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(31) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(182) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(22) / sum(31) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(92) / sum(182) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ trial, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q12.4.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinnose)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q12.4.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinnose)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(8) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(205) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(6) / sum(8) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(108) / sum(205) * 100
+print(pourcentages_cumules)
+
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q12.4.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinnose, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q15.Haveyoueverheardofthetermclinicaltrial)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q15.Haveyoueverheardofthetermclinicaltrial)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(68) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(145) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(45) / sum(68) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(69) / sum(145) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q15.Haveyoueverheardofthetermclinicaltrial, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+# Fonction pour calculer la mode
+get_mode <- function(v) {
+  uniq_v <- unique(v)
+  uniq_v[which.max(tabulate(match(v, uniq_v)))]
+}
+mode_value <- get_mode(cher$Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials)
+#Imputation des valeurs manquantes par la mode
+cher$Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials[is.na(cher$Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials)] <- mode_value
+# Affichage du nouveau data frame
+print(cher)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q16.IfyouansweredyestoQ15wheredidyouhearaboutclinicaltrials, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q17.Whendoyouthinkisthebesttimetolearnaboutclinicaltrials)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q17.Whendoyouthinkisthebesttimetolearnaboutclinicaltrials)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(183) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(30) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(94) / sum(183) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(20) / sum(30) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q17.Whendoyouthinkisthebesttimetolearnaboutclinicaltrials, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q18.Whodoyouthinkisthemostappropriatepersontoeducatepeopleaboutclinicaltrials)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q18.Whodoyouthinkisthemostappropriatepersontoeducatepeopleaboutclinicaltrials)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(8) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(12) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(23) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(7) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(112) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(51) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(1) / sum(8) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(4) / sum(12) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(10) / sum(23) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(60) / sum(112) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(36) / sum(51) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(3) / sum(7) * 100
+print(pourcentages_cumules)
+
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q18.Whodoyouthinkisthemostappropriatepersontoeducatepeopleaboutclinicaltrials, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+table(cher$Q23.Howmuchdoyouknowaboutcancerandthewayitworks)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q23.Howmuchdoyouknowaboutcancerandthewayitworks)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(50) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(13) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(30) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(120) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(25) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(19) / sum(30) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(64) / sum(120) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(6) / sum(13) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q23.Howmuchdoyouknowaboutcancerandthewayitworks, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q24.Inyourownopinionhowcanprovidersimprovethewaytheyeducatetheirpatients)
+
+table(cher$Q25.Isoneannualvisitwithaprovidersufficientorwouldyoupreferadditionaleducationalvisitswithoutanadditionalcosttoyou)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q25.Isoneannualvisitwithaprovidersufficientorwouldyoupreferadditionaleducationalvisitswithoutanadditionalcosttoyou)
+tableau_contingence
+pourcentages_cumules <- cumsum(58) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(66) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(89) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(34) / sum(58) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(34) / sum(66) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(46) / sum(89) * 100
+print(pourcentages_cumules)
+test_result <- chisq.test(tableau_contingence)
+test_result
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q25.Isoneannualvisitwithaprovidersufficientorwouldyoupreferadditionaleducationalvisitswithoutanadditionalcosttoyou, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(29) / sum(207) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(97) / sum(207) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(81) / sum(207) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(18) / sum(29) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(47) / sum(97) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(46) / sum(81) * 100
+print(pourcentages_cumules)
+# Fonction pour calculer la mode
+get_mode <- function(v) {
+  uniq_v <- unique(v)
+  uniq_v[which.max(tabulate(match(v, uniq_v)))]
+}
+mode_value <- get_mode(cher$Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit)
+#Imputation des valeurs manquantes par la mode
+cher$Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit[is.na(cher$Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit)] <- mode_value
+# Affichage du nouveau data frame
+print(cher)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+
+
+
+table(cher$Q28_1.DoyouknowAnyoneclosetoyouwhoparticipatedinaclinicaltrial)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q28_1.DoyouknowAnyoneclosetoyouwhoparticipatedinaclinicaltrial)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(189) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(24) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(104) / sum(189) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(10) / sum(24) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q28_1.DoyouknowAnyoneclosetoyouwhoparticipatedinaclinicaltrial, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q29.Woulditbeusefultoyoutohearfrompatientswhohaveparticipatedinclinicaltrials)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q29.Woulditbeusefultoyoutohearfrompatientswhohaveparticipatedinclinicaltrials)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(24) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(18) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(171) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(19) / sum(24) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(12) / sum(18) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(83) / sum(171) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q29.Woulditbeusefultoyoutohearfrompatientswhohaveparticipatedinclinicaltrials, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(44) / sum(211) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(167) / sum(211) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(24) / sum(44) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(89) / sum(167) * 100
+print(pourcentages_cumules)
+# Fonction pour calculer la mode
+get_mode <- function(v) {
+  uniq_v <- unique(v)
+  uniq_v[which.max(tabulate(match(v, uniq_v)))]
+}
+mode_value <- get_mode(cher$Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers)
+#Imputation des valeurs manquantes par la mode
+cher$Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers[is.na(cher$Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers)] <- mode_value
+# Affichage du nouveau data frame
+print(cher)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial, cher$Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(72) / sum(211) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(139) / sum(211) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(54) / sum(72) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(59) / sum(139) * 100
+print(pourcentages_cumules)
+
+# Fonction pour calculer la mode
+get_mode <- function(v) {
+  uniq_v <- unique(v)
+  uniq_v[which.max(tabulate(match(v, uniq_v)))]
+}
+mode_value <- get_mode(cher$Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily)
+#Imputation des valeurs manquantes par la mode
+cher$Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily[is.na(cher$Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily)] <- mode_value
+# Affichage du nouveau data frame
+print(cher)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+multivariate_model <- glm(Iamafraidofparticipatinginaclinicaltrial ~ trial + Q12.4.Whichoneofthefollowingwouldbeeasyordifficultforyoutoadministeryourselfathomeinnose + Q15.Haveyoueverheardofthetermclinicaltrial + Q17.Whendoyouthinkisthebesttimetolearnaboutclinicaltrials + Q18.Whodoyouthinkisthemostappropriatepersontoeducatepeopleaboutclinicaltrials + Q23.Howmuchdoyouknowaboutcancerandthewayitworks + Q25.Isoneannualvisitwithaprovidersufficientorwouldyoupreferadditionaleducationalvisitswithoutanadditionalcosttoyou + Q26.Abouthowmuchoftheinformationprovidedtoyoubyyourhealthproviderdoyouunderstandandrememberafterthevisit + Q28_1.DoyouknowAnyoneclosetoyouwhoparticipatedinaclinicaltrial + Q29.Woulditbeusefultoyoutohearfrompatientswhohaveparticipatedinclinicaltrials + Q31.Doyoufeellikeyouknowmoreaboutriskfactorsforwomenscancers + Q33.Doyoufeelmorecomfortableparticipatinginaclinicaltrialorrecommendingclinicaltrialstoyourfriendsorfamily, data = cher, family = binomial)
+summary(multivariate_model)
+
+# Calculer les odds ratios et les intervalles de confiance
+odds_ratios <- exp(coef(multivariate_model))  # Exponentiate les coefficients
+confint_model <- exp(confint(multivariate_model))  # Exponentiate l'intervalle de confiance
+
+# Créer un tableau des résultats
+results <- data.frame(
+  Variable = names(odds_ratios),
+  Odds_Ratio = odds_ratios,
+  CI_Lower = confint_model[,1],
+  CI_Upper = confint_model[,2]
+)
+
+# Afficher les résultats
+print(results)
+
+
+table(cher$Q19_2.Iwouldwantmylovedonewithcancertoparticipateinaclinicaltrial)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q19_2.Iwouldwantmylovedonewithcancertoparticipateinaclinicaltrial)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(156) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(57) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(73) / sum(156) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(41) / sum(57) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_2.Iwouldwantmylovedonewithcancertoparticipateinaclinicaltrial, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q19_3.Iknowhowtofindaclinicaltrialformyselforformylovedone)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q19_3.Iknowhowtofindaclinicaltrialformyselforformylovedone)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(60) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(153) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(23) / sum(60) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(91) / sum(153) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_3.Iknowhowtofindaclinicaltrialformyselforformylovedone, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q19_4.Idonottrustthehealthsystemordoctorsorpharmaceuticals)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q19_4.Idonottrustthehealthsystemordoctorsorpharmaceuticals)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(56) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(157) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(37) / sum(56) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(77) / sum(157) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_4.Idonottrustthehealthsystemordoctorsorpharmaceuticals, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q19_6.Idonotwanttotakemedicinesthathavenotbeentestedorproven)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q19_6.Idonotwanttotakemedicinesthathavenotbeentestedorproven)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(162) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(51) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(99) / sum(162) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(15) / sum(51) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_6.Idonotwanttotakemedicinesthathavenotbeentestedorproven, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q19_9.IdonotwanttoihaveanewdoctorwhomIdonotknow)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q19_9.IdonotwanttoihaveanewdoctorwhomIdonotknow)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(103) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(110) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(68) / sum(103) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(46) / sum(110) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_9.IdonotwanttoihaveanewdoctorwhomIdonotknow, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+table(cher$Q28_2.DoyouknowHowtofindaclinicaltrialandjoinit)
+tableau_contingence<- table(cher$Iamafraidofparticipatinginaclinicaltrial ,cher$Q28_2.DoyouknowHowtofindaclinicaltrialandjoinit)
+tableau_contingence
+test_result <- chisq.test(tableau_contingence)
+test_result
+pourcentages_cumules <- cumsum(176) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(37) / sum(213) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(104) / sum(176) * 100
+print(pourcentages_cumules)
+pourcentages_cumules <- cumsum(10) / sum(37) * 100
+print(pourcentages_cumules)
+model_A <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q28_2.DoyouknowHowtofindaclinicaltrialandjoinit, data = cher, family = binomial)
+summary(model_A)
+odds_ratios <- exp(coef(model_A)) # Calculer les odds ratios
+odds_ratios
+conf_int <- exp(confint(model_A))  # Calculer les intervalles de confiance
+conf_int
+
+multivariate_model <- glm(Iamafraidofparticipatinginaclinicaltrial ~ Q19_2.Iwouldwantmylovedonewithcancertoparticipateinaclinicaltrial + Q19_3.Iknowhowtofindaclinicaltrialformyselforformylovedone + Q19_4.Idonottrustthehealthsystemordoctorsorpharmaceuticals + Q19_6.Idonotwanttotakemedicinesthathavenotbeentestedorproven + Q19_9.IdonotwanttoihaveanewdoctorwhomIdonotknow + Q28_2.DoyouknowHowtofindaclinicaltrialandjoinit, data = cher, family = binomial)
+summary(multivariate_model)
+
+# Calculer les odds ratios et les intervalles de confiance
+odds_ratios <- exp(coef(multivariate_model))  # Exponentiate les coefficients
+confint_model <- exp(confint(multivariate_model))  # Exponentiate l'intervalle de confiance
+
+# Créer un tableau des résultats
+results <- data.frame(
+  Variable = names(odds_ratios),
+  Odds_Ratio = odds_ratios,
+  CI_Lower = confint_model[,1],
+  CI_Upper = confint_model[,2]
+)
+
+# Afficher les résultats
+print(results)
+
+
+
+# Modifier les modalités
+cher$Age2[cher$Age2 == '<30'] <- '18-49'
+cher$Age2[cher$Age2 == '31-60'] <- '18-49'
+cher$Age2[cher$Age2 == '61+'] <- '50+'
+
+# View the modified dataframe
+print(cher)
+
+
+
+
+
+
+
+
+
+
+
+
+
